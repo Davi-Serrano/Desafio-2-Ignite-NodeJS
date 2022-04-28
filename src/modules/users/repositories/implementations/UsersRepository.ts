@@ -30,22 +30,26 @@ class UsersRepository implements IUsersRepository {
     });
     
     this.users.push(user);
+
+    return user
   }
 
   findById(id: string): User | undefined {
     const userId = this.users.find( user => user.id === id);
-    
+
     return userId
+    
   } 
 
   findByEmail(email: string): User | undefined {
-    const userEmail = this.users.find( user => user.email === email);
+    const userEmail = this.users.find( users => users.email === email);
 
     return userEmail
+
   }
 
   turnAdmin(receivedUser: User): User {
-    const userIndex = this.users.findIndex( user => user.name === receivedUser);
+    const userIndex = this.users.findIndex( user => user === receivedUser);
 
     Object.assign(this.users[userIndex],{
         admin: true

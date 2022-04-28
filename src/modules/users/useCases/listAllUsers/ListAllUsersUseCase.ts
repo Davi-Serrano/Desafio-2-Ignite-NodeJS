@@ -9,7 +9,17 @@ class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User[] {
-    // Complete aqui
+    const user_IdAlreadyExists = this.usersRepository.findById(user_id);
+
+    if(!user_IdAlreadyExists){
+      throw new Error("User dont exists");
+    }
+
+    if(user_IdAlreadyExists.id !== user_id){
+      throw new Error("User aren't authencticated");
+    }
+
+    return this.usersRepository.list();
   }
 }
 
