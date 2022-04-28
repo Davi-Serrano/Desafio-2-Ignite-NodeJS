@@ -15,7 +15,7 @@ class ListAllUsersUseCase {
       throw new Error("User dont exists");
     }
 
-    if(user_IdAlreadyExists.id !== user_id){
+    if(user_IdAlreadyExists.admin === false){
       throw new Error("User aren't authencticated");
     }
 
