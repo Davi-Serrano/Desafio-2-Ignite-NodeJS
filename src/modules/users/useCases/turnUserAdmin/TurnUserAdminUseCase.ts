@@ -15,7 +15,7 @@ class TurnUserAdminUseCase {
       throw new Error("User not found")
     }
     
-    return this.userRepository.turnAdmin({user_id})
+    return this.userRepository.turnAdmin(user_id)
 }
 
 export { TurnUserAdminUseCase };
