@@ -11,11 +11,12 @@ class ShowUserProfileUseCase {
   execute({ user_id }: IRequest): User {
     const userAlreadyExists = this.usersRepository.findById(user_id);
     
-    if(!user_idAlreadyExists){
+    if(!userAlreadyExists){
       throw new Error("This user dont exists") ;
     };
     
     return userAlreadyExists;
+  }
 }
   
 export { ShowUserProfileUseCase };

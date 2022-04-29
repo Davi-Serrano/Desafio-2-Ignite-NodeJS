@@ -1,17 +1,17 @@
-import { Response, Request } from "express";
+import { Response, Request, response } from "express";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 class CreateUserController {
-  constructor(private createUserUseCase: CreateUserUseCase) {}
-
-  handle(request: Request, response: Response): Response {
-    const { name, email }= request.body;
-
-    this.createUserUseCase.execute({name, email});
+    constructor(private createUserUseCase: CreateUserUseCase) {}
     
-    return response.status(201).send();
-  }
+    handle(request: Request, response: Response): Response {
+      const { name, email }= request.body;
+
+      this.createUserUseCase.execute({name, email});
+      
+      return response.status(201).send();
+    }
 }
 
 export { CreateUserController };
