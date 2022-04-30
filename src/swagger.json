@@ -16,7 +16,7 @@
                 "description": "Campos obrigatórios para criação de um usuário.",
                 "requestBody": {
                     "content": {
-                        "aplication/json":{
+                        "application/json":{
                             "schema":{
                                 "type": "Object",
                                 "properties":{
@@ -82,7 +82,7 @@
                         "summary": "Erro",
                         "description": "Email já está sendo utilizado",
                         "content":{
-                            "aplication/json":{
+                            "application/json":{
                                 "schema": {
                                     "type":"Object",
                                     "properties":{
@@ -267,6 +267,85 @@
                             }
                         }
 					}
+                }
+            }
+        },
+        "user/{user_id}/admin":{
+            "patch":{
+                "tags": ["user"],
+                "summary": "Torna um usuário admin.",
+                "description": "",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "user_id",
+                        "description": "ID do usuário.",
+                        "schema": {"type": "string", "format": "uuid"}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "summary":"Sucesso",
+                        "description":"Operação realizada com sucesso.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "id":{
+                                            "type":"string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    }
+                                },
+                                "example":{
+                                    "id": "123e4567-e89b-12d3-a456-426614174000",
+                                    "name": "David Serrano",
+                                    "email": "teste1@gmail.com",
+                                    "admin": true,
+                                    "created_at": "02-02-2022",
+                                    "updated_at": "02-02-2022"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "summary": "Erro",
+						"description": "Usuário não encontrado.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error":"User not found."
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
