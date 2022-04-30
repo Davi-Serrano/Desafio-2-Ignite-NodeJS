@@ -12,8 +12,8 @@
         "/users":{
             "post":{
                 "tags": ["user"],
-                "summary": "Create a user",
-                "description": "Create a new user",
+                "summary": "Cria um novo usuário.",
+                "description": "Campos obrigatórios para criação de um usuário.",
                 "requestBody": {
                     "content": {
                         "aplication/json":{
@@ -28,8 +28,8 @@
                                     }
                                 },
                                 "example":{
-                                    "name": "User name sample",
-                                    "email": "User email sample"
+                                    "name": "Davi Serrano",
+                                    "email": "teste@gmail.com"
                                 }
                             }
                         }
@@ -37,31 +37,11 @@
                 },
                 "responses":{
                     "201": {
-                        "descrpition": "Created"
-                    },
-                    "500":{
-                        "descrpition": "Error server"}
-                }         
-            },
-            "get":{
-                "tags": ["user"],
-                "summary": "List users",
-                "description": "List all users",
-                "parameters":[
-                    {
-                        "in": "header",
-                "required": true,
-                "name": "user_id",
-                "description": "user ID",
-                "schema": {"type": "string"}
-                    }
-                ],
-                "responses":{
-                    "200": {
-                        "description": "Success",
+                        "summary": "Sucesso",
+                        "description": "Operação realizada com sucesso",
                         "content":{
-                            "application/json":{
-                                "schema": {      
+                            "aplication/json":{
+                                "schema":{
                                     "type": "object",
                                     "properties": {
                                         "id":{
@@ -85,11 +65,208 @@
                                             "type": "string",
                                             "format": "date"
                                         }
-                                    }                                   
+                                    }
+                                },
+                                "example":{
+                                    "id": "123e4567-e89b-12d3-a456-426614174000",
+                                    "name": "Davi Serrano",
+                                    "email": "teste@gmail.com",
+                                    "admin": "false",
+                                    "created_at": "02-02-2022",
+                                    "updated_at": "02-02-2022"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "summary": "Erro",
+                        "description": "Email já está sendo utilizado",
+                        "content":{
+                            "aplication/json":{
+                                "schema": {
+                                    "type":"Object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example":{
+                                    "error": "This email already in use"
                                 }
                             }
                         }
                     }
+                }         
+            },
+            "get":{
+                "tags": ["user"],
+                "summary": "Retorna todos os usuários.",
+                "description": "Somente usuário admin pode acessar.",
+                "parameters":[
+                    {
+                        "in": "header",
+                        "required": true,
+                        "name": "user_id",
+                        "description": "user ID",
+                        "schema": {
+                                "type": "string", 
+                                "format":"uuid"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "summary": "Sucesso",
+                        "description": "Operação realizada com sucesso.",
+                        "content":{
+                            "application/json":{
+                                "schema": {      
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id":{
+                                                "type":"string",
+                                                "format": "uuid"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            }
+                                        }
+                                    },       
+                                    "example":[
+                                        {
+                                            "id": "123e4567-e89b-12d3-a456-426614174000",
+                                            "name": "Davi Serrano",
+                                            "email": "teste@gmail.com",
+                                            "admin": true,
+                                            "created_at": "02-02-2022",
+                                            "updated_at": "02-02-2022"
+                                        },
+                                        {
+                                            "id": "123e4567-e89b-12d3-a456-426614174003",
+                                            "name": "David Serrano",
+                                            "email": "teste1@gmail.com",
+                                            "admin": false,
+                                            "created_at": "02-02-2022",
+                                            "updated_at": "02-02-2022"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "summary": "Erro",
+                        "description": "User sem permissão ou usuário não encontrado.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"Object",
+                                    "properties": {
+                                        "type": "string"
+                                    },
+                                    "example":{
+                                        "error": "You need to be an administrator to list all users."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags": ["user"],
+                "summary": "Retorna um usuário especifico.",
+                "description": "",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "user_id",
+                        "description": "ID do usuário.",
+                        "schema": {"type": "string", "format": "uuid"}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "summary": "Sucesso",
+						"description": "Operação realizada com sucesso.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"Object",
+                                    "properties":{
+                                        "id":{
+                                            "type":"string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    }
+                                },
+                                "example":{
+                                    "id": "123e4567-e89b-12d3-a456-426614174000",
+                                    "name": "David Serrano",
+                                    "email": "teste1@gmail.com",
+                                    "admin": false,
+                                    "created_at": "02-02-2022",
+                                    "updated_at": "02-02-2022"
+                                }
+                            }
+                        }
+					},
+					"404":{
+                        "summary": "Erro",
+						"description": "Usuário não encontrado.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties":{
+                                        "error":{
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "error":"User not found."
+                                }
+                            }
+                        }
+					}
                 }
             }
         }
