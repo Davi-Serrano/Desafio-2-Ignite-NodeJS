@@ -1,17 +1,14 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Desafio Capítulo 2 NodeJS-Ignite",
-        "description": "This is a API documentation",
-        "version": "1.0.0",
-        "contact": {
-            "email":"daviscardoso2901@gmail.com"
-        }
+        "title": "Atlas",
+        "description": "Essa é uam documentação sobre a Atlas API.",
+        "version": "1.0.0"
     },
     "paths":{
         "/users":{
             "post":{
-                "tags": ["user"],
+                "tags": ["users"],
                 "summary": "Cria um novo usuário.",
                 "description": "Campos obrigatórios para criação de um usuário.",
                 "requestBody": {
@@ -100,7 +97,7 @@
                 }         
             },
             "get":{
-                "tags": ["user"],
+                "tags": ["users"],
                 "summary": "Retorna todos os usuários.",
                 "description": "Somente usuário admin pode acessar.",
                 "parameters":[
@@ -193,7 +190,7 @@
         },
         "/users/{user_id}":{
             "get":{
-                "tags": ["user"],
+                "tags": ["users"],
                 "summary": "Retorna um usuário especifico.",
                 "description": "",
                 "parameters":[
@@ -272,7 +269,7 @@
         },
         "/users/{user_id}/admin":{
             "patch":{
-                "tags": ["user"],
+                "tags": ["users"],
                 "summary": "Torna um usuário admin.",
                 "description": "",
                 "parameters":[
