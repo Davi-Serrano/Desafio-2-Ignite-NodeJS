@@ -9,12 +9,12 @@ class User {
   updated_at: Date;
 
   constructor(name?: string, email?: string){
-    this.id = uuidV4();
     this.name = name;
     this.email = email;
     this.admin = false;
     this.created_at = new Date();
     this.updated_at = new Date();
+    this.id = uuidV4();
   }
 }
 
