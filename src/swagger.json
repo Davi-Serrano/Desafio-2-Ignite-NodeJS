@@ -270,7 +270,7 @@
                 }
             }
         },
-        "user/{user_id}/admin":{
+        "/users/{user_id}/admin":{
             "patch":{
                 "tags": ["user"],
                 "summary": "Torna um usuário admin.",
